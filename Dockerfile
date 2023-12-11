@@ -12,9 +12,8 @@ ENV HOME /home/${NB_USER}
 
 RUN adduser --uid ${NB_UID} \
     ${NB_USER}
-RUN chmod -R 777 /
 WORKDIR ${HOME}
-USER ${USER}
+
 
 # Install Jupyter and gophernotes.
 RUN mkdir -p /go/src/github.com/gopherdata/gophernotes/
@@ -42,6 +41,8 @@ RUN cd /go/src/github.com/gopherdata/gophernotes \
     && go get github.com/andygrunwald/go-jira \
     && go get github.com/FreeLeh/GoFreeDB
 RUN chmod +x /usr/local/bin/*
-
+RUN chown -R ${NB_USER}:${NB_USER} ${HOME}
 # Set GOPATH.
 ENV GOPATH /go
+
+USER ${USER}
