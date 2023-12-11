@@ -42,6 +42,7 @@ RUN cd /go/src/github.com/gopherdata/gophernotes \
     && go get github.com/FreeLeh/GoFreeDB
 RUN chmod +x /usr/local/bin/*
 RUN chown -R ${NB_USER}:${NB_USER} ${HOME}
+RUN chown -R ${NB_USER}:${NB_USER} /go
 # Set GOPATH.
 ENV GOPATH /go
 
