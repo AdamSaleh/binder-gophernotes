@@ -6,8 +6,7 @@ ARG NB_UID
 ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
 
-RUN adduser --gecos "Default user" \
-    --uid ${NB_UID} \
+RUN adduser --uid ${NB_UID} \
     ${NB_USER}
 WORKDIR ${HOME}
 USER ${USER}
