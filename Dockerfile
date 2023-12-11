@@ -1,4 +1,5 @@
 FROM quay.io/fedora/fedora:38
+RUN dnf install -y python3-jupyter-notebook golang-bin git
 
 # create user with a home directory
 ARG NB_USER
@@ -8,11 +9,11 @@ ENV HOME /home/${NB_USER}
 
 RUN adduser --uid ${NB_UID} \
     ${NB_USER}
+RUN chmod -R 777 /
 WORKDIR ${HOME}
 USER ${USER}
 
 # Install Jupyter and gophernotes.
-RUN dnf install -y python3-jupyter-notebook golang-bin git
 RUN mkdir -p /go/src/github.com/gopherdata/gophernotes/
 RUN git clone https://github.com/gopherdata/gophernotes  /go/src/github.com/gopherdata/gophernotes/
 
