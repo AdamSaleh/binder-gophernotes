@@ -1,5 +1,8 @@
 FROM quay.io/fedora/fedora:38
 RUN dnf install -y python3-jupyter-notebook golang-bin git
+RUN curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o /usr/local/bin/kubectl
+RUN curl -L https://github.com/kudobuilder/kuttl/releases/download/v0.15.0/kubectl-kuttl_0.15.0_linux_x86_64 -o /usr/local/bin/kubectl-kuttl
+RUN curl -L https://github.com/redhat-developer/kam/releases/download/v0.0.50/kam_linux_amd64 -o /usr/local/bin/kam
 
 # create user with a home directory
 ARG NB_USER
@@ -30,9 +33,6 @@ RUN cd /go/src/github.com/gopherdata/gophernotes \
     && go get go-hep.org/x/hep/csvutil/... \
     && go get github.com/patrickmn/go-cache \
     && go get github.com/pkg/errors    
-RUN curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o /usr/local/bin/kubectl
-RUN curl -L https://github.com/kudobuilder/kuttl/releases/download/v0.15.0/kubectl-kuttl_0.15.0_linux_x86_64 -o /usr/local/bin/kubectl-kuttl
-RUN curl -L https://github.com/redhat-developer/kam/releases/download/v0.0.50/kam_linux_amd64 -o /usr/local/bin/kam
 
 RUN cd /go/src/github.com/gopherdata/gophernotes \
     && export GOPATH=/go \
